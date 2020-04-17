@@ -16,17 +16,19 @@
  */
 package org.apache.rocketmq.namesrv;
 
+import org.apache.commons.lang3.time.DateUtils;
 import org.apache.rocketmq.common.namesrv.NamesrvConfig;
 import org.apache.rocketmq.remoting.netty.NettyServerConfig;
 import org.junit.After;
 import org.junit.Before;
+import org.junit.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
 public class NameServerInstanceTest {
     protected NamesrvController nameSrvController = null;
-    protected NettyServerConfig nettyServerConfig = new NettyServerConfig();
-    protected NamesrvConfig namesrvConfig = new NamesrvConfig();
+    protected static NettyServerConfig nettyServerConfig = new NettyServerConfig();
+    protected static NamesrvConfig namesrvConfig = new NamesrvConfig();
 
     @Before
     public void startup() throws Exception {
@@ -34,7 +36,18 @@ public class NameServerInstanceTest {
         nameSrvController = new NamesrvController(namesrvConfig, nettyServerConfig);
         boolean initResult = nameSrvController.initialize();
         assertThat(initResult).isTrue();
-        nameSrvController.start();
+//        nameSrvController.start();
+    }
+    @Test
+    public void nameSrvStart() {
+    	try {
+			nameSrvController.start();
+			System.out.println("*****************nameSrvController start finsh*****************");
+			Thread.sleep(DateUtils.MILLIS_PER_DAY);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
     }
 
     @After
